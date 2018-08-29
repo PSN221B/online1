@@ -245,7 +245,7 @@ function ifValidMove(prevbx,prevby,bx,by){
     }   
     else
     {
-      alert("go fuck yourself");
+      alert("");
       return -1;
     } 
   }  
@@ -823,10 +823,10 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
     else if(prbx>fbx && prby>fby)      //move to left top
     {
-      var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
-      var imgData2 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE, 1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -882,10 +882,8 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
         alert("wall therefore can't move");
         return(0);
       }
-      console.log("WallCheck: "+" "+prby+" "+prbx+" "+fby+" "+fbx);
-      x=WallCheck(prby-1,prbx-1,fby,fbx,jsindex);
-      console.log(x);
-      return(x);
+
+      return(WallCheck(prby-1,prbx-1,fby,fbx,jsindex));
 
     }
 
@@ -1140,10 +1138,10 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
     else if(prbx>fbx && prby>fby)      //move to left top
     {
-      var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      var imgData2 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE, 1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -1340,7 +1338,7 @@ function endgame(piece){
 
 //////////////  TIMER  ////////////////////////
 
-var TIME = 60 ;
+var TIME = 60*10 ;
 var seconds_left_Black = TIME;
 var seconds_left_White = TIME;
 
