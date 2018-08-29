@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>HTML5 Canvas - Chess board- We are f****d</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+        <script src='chess_board.js'> </script>
+        <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    </head>
+    <body onload='drawBoard(); onclickinit(); BlackTimer() ; WhiteTimer()'>
+        <div>
+            <div class="heading">   
+                <h1>The Name and Tag Line Comes Here</h1>
+            </div>
+            <hr>
+            <div class="buttons_menu">
+                <button id="0" class="rotateButton"  onclick="rotate(this.id);" style="background-color: #00ffff;">Rotate A</button>
+                <button id="1" class="rotateButton"  onclick="rotate(this.id);" style="background-color: #ffff00">Rotate B</button>
+                <button id="2" class="rotateButton"  onclick="rotate(this.id);" style="background-color: #7fff00;">Rotate C</button>
+                <button id="3" class="rotateButton"  onclick="rotate(this.id);" style="background-color: #7fff00;">Rotate D</button>
+                <button id="4" class="rotateButton"  onclick="rotate(this.id);" style="background-color: #ffff00;">Rotate E</button>
+                <button id="5" class="rotateButton"  onclick="rotate(this.id);" style="background-color: #00ffff;">Rotate F</button>
+            </div>
+            <canvas id="chess" width="1050" height="675">  </canvas>
+            
+            <div id="log_box">
+                
+                <div id="Timer">
+                    <h2>Timer</h2>
+                    <div>Black: <span id="BlackTime"> </span></div>
+                    <div>White: <span id="WhiteTime"> </span></div>               
+                </div><hr>
+               
+                <div>
+                    <h2>Scores</h2><hr>
+                    <div class="Score">WHITE:<span id="white_score">0</span></div>
+                    <div class="Score">BLACK:<span id="black_score">0</span></div>
+                </div><hr>
+
+                <div id="Message">
+                    <h2>Log and Warnings!</h2> <hr>
+                    <div id="Messages">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+</html>
+
+<!--  What all did i change : 
+    *The order of divs in html and added css 
+    *Changed the origin values in js
+    *Modified the score divs
+     -->
