@@ -66,6 +66,7 @@ html, body{
 	width: 140px;
 	font-size: 25px;
 }
+<<<<<<< HEAD
 
 #Messages {
 	width : 355px;
@@ -73,3 +74,5 @@ html, body{
 	background-color: rgb(211,211,211) ;
 	overflow: scroll;
 }
+=======
+>>>>>>> 4ef0e9def718aea5998ae55c56694674f3eadec8

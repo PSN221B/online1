@@ -24,28 +24,37 @@ var json =
             "piece": "ROOK",
             "row": 0,
             "col": 0,
-            "in_play": true
+
+            
+
         },
         {
             "imgPos": 2,
             "piece": "BISHOP",
+
             "row": 0,
             "col": 2,
             "in_play": true
+
+            
         },
         {
             "imgPos": 3,
             "piece": "KING",
+
             "row": 0,
             "col": 3,
             "in_play": true
+
         },
         {
             "imgPos": 1,
             "piece": "KNIGHT",
+
             "row": 1,
             "col": 0,
             "in_play": true
+
         }
     ],
     "black":
@@ -53,30 +62,38 @@ var json =
         {
             "imgPos": 0,
             "piece": "ROOK",
+
             "row": 5,
             "col": 0,
             "in_play": true
+
         },
         {
             "imgPos": 2,
             "piece": "BISHOP",
             "row": 5,
+
             "col": 2,
             "in_play": true
+
         },
         {
             "imgPos": 3,
             "piece": "KING",
+
             "row": 5,
             "col": 3,
             "in_play": true
+
         },
         {
             "imgPos": 1,
             "piece": "KNIGHT",
             "row": 5,
             "col": 11,
+
             "in_play": true
+
         }
     ]
 };
@@ -201,7 +218,9 @@ function ifValidMove(prevbx,prevby,bx,by){
             if(bx > prevbx &&  (json.white[i].col>prevbx && json.white[i].col<bx)) 
             {
               alert("can't move there");
+
               printInLog('wm',"can't move there own piece");
+
               return -1;
             }
             else if(bx < prevbx &&  (json.white[i].col<prevbx && json.white[i].col>bx))
@@ -212,7 +231,9 @@ function ifValidMove(prevbx,prevby,bx,by){
             if(bx > prevbx &&  (json.black[i].col>prevbx && json.black[i].col<bx)) 
             {
               alert("can't move there");
+
               printInLog('wm',"can't move there own piece");
+
               return -1;
             }
             else if(bx < prevbx &&  (json.black[i].col<prevbx && json.black[i].col>bx))
@@ -229,13 +250,17 @@ function ifValidMove(prevbx,prevby,bx,by){
             if(by > prevby &&  (json.white[i].row>prevby && json.white[i].row<by)) 
             {
               alert("can't move there");
+
               printInLog('wm',"can't move there own piece");
+
               return -1;
             }
             else if(by < prevby &&  (json.white[i].row<prevby && json.white[i].row>by))
             {
               alert("can't move there");
+
               printInLog('wm',"can't move there own piece");
+
               return -1;
             }
           if(json.black[i].col === bx)
@@ -243,13 +268,17 @@ function ifValidMove(prevbx,prevby,bx,by){
             if(by > prevby &&  (json.black[i].row>prevby && json.black[i].row<by)) 
             {
               alert("can't move there");
+
               printInLog('wm',"can't move there own piece");
+
               return -1;
             }
             else if(by < prevby &&  (json.black[i].row<prevby && json.black[i].row>by))
             {
               alert("can't move there");
+
               printInLog('wm',"can't move there own piece");
+
               return -1;
             }
           }
@@ -259,7 +288,9 @@ function ifValidMove(prevbx,prevby,bx,by){
     }   
     else
     {
+
       alert("go fuck yourself");
+
       return -1;
     } 
   }  
@@ -274,14 +305,18 @@ function ifValidMove(prevbx,prevby,bx,by){
             && (json.white[i].col - prevbx) * (bx - json.white[i].col) > 0 && (json.white[i].row - prevby) * (by - json.white[i].row) > 0 )
         {
          alert("can't move there");
+
          printInLog('wm',"can't move there own piece");
+
          return -1;
         }
         if( (json.black[i].col - prevbx) * (bx - prevbx)/colsDiff === (json.black[i].row - prevby) *  (by - prevby)/rowsDiff
             && (json.black[i].col - prevbx) * (bx - json.black[i].col) > 0 && (json.black[i].row - prevby) * (by - json.black[i].row) > 0 )
         {
          alert("can't move there");
+
          printInLog('wm',"can't move there own piece");
+
          return -1;
         }
       }
@@ -304,7 +339,9 @@ function ifValidMove(prevbx,prevby,bx,by){
 }
 
 //////////////////////////////////////////////////
+
 ////////////////////YASH TOPPER///////////////////
+
 
 var move = 1,   //0-black's move, 1-white's move
     clickodd = 0,
@@ -381,7 +418,9 @@ function onclickinit(){
          if(json.white[i].row == by && json.white[i].col == bx)
          {
            alert("can't move there own piece");
+
            printInLog('wm',"can't move there own piece");
+
            return 0;
          }
       }
@@ -403,21 +442,27 @@ function onclickinit(){
             
             calcScore(i,1);
 
+
             if(i == 2){
               endgame(1);
             }
+
 
             break;
           }
       }
 
+
       var prevX = json.white[jsonindex].row;
       var prevY = json.white[jsonindex].col;
+
         //finally a valid move no wall and no other piece there
       json.white[jsonindex].row = by;
       json.white[jsonindex].col = bx;
 
+
       printInLog('cw',json.white[jsonindex].piece+' moved from ('+prevX+' , '+prevY+') to ('+bx+' , '+by+')')
+
 
       if(checkIfCheck(jsonindex,1) ===  1) alert("Check MF");
 
@@ -478,7 +523,9 @@ function onclickinit(){
          if(json.black[i].row == by && json.black[i].col == bx)
          {
            alert("can't move there");
+
            printInLog('wm',"can't move there");
+
            return 0;
          }
       }
@@ -500,21 +547,27 @@ function onclickinit(){
             json.white[i].col = -1;     //That piece captured
 
             calcScore(i,0);
+
             if(i == 2){
               endgame(0);
             }
+
             break;
           }
         }
 
         //finally a valid move no wall and no other piece there
+
         var prevX = json.black[jsonindex].row;
         var prevY = json.black[jsonindex].col;
+
 
         json.black[jsonindex].row = by;
         json.black[jsonindex].col = bx;
 
+
         printInLog('cw',json.black[jsonindex].piece+' moved from ('+prevX+' , '+prevY+') to ('+bx+' , '+by+')')
+
 
         if(checkIfCheck(jsonindex,0)===1) alert("Check MF");
 
@@ -626,6 +679,7 @@ function rotate(id) {
         && Math.floor(json.black[2].row/5)===id%2) )) 
     {
         SEMI_BRD_ORIENT[id]=(SEMI_BRD_ORIENT[id]+1)%4;
+
         var boardAlphabet;
 
         switch(id){
@@ -641,6 +695,7 @@ function rotate(id) {
           break;
           case '5': boardAlphabet = 'F';
           break;
+
 
         for(i=0;i<4;i++)
         {
@@ -668,6 +723,7 @@ function rotate(id) {
         hadRotPrev[move] = 1;      
         
 
+
         }
         if(move === 0){
               printInLog('cb','Board '+boardAlphabet+' rotated');
@@ -676,12 +732,15 @@ function rotate(id) {
         else {
             printInLog('cw','Board '+boardAlphabet+' rotated');
         }
+
         move = (move+1)%2;
         clickodd = 0;
 
         drawBoard();
     }
+
     else printInLog('wm','Board cannot be rotated')
+
 
 }
 
@@ -731,7 +790,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
               { // red
                   
                   alert("wall therefore you can't move there");
+
                   printInLog('wm',"wall therefore you can't move there");
+
                   return(0);
                   break;
               }
@@ -807,7 +868,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       if(p1 === 1 && p2 === 1)
       {
         alert("wall therefore can't move");
+
         printInLog('wm',"wall therefore you can't move there");
+
         return(0);
       }
       return(WallCheck(prby+1,prbx+1,fby,fbx,jsindex));
@@ -874,7 +937,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       if(p1==1 && p2 ==1)
       {
         alert("wall therefore can't move");
+
         printInLog('wm',"wall therefore you can't move there");
+
         return(0);
       }
 
@@ -884,11 +949,13 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
     else if(prbx>fbx && prby>fby)      //move to left top
     {
+
       var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
       var imgData2 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
       var imgData3 =  ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
       var imgData4 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      
+
+
       var data1 = imgData1.data;
       var data2 = imgData2.data;
       var data3 = imgData3.data;
@@ -941,6 +1008,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       if(p1 === 1 && p2 === 1)
       {
         alert("wall therefore can't move");
+
         printInLog('wm',"wall therefore you can't move there");
         return(0);
       }
@@ -948,6 +1016,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       x=WallCheck(prby-1,prbx-1,fby,fbx,jsindex);
       console.log(x);
       return(x);
+
 
     }
 
@@ -1010,7 +1079,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       if(p1==1 && p2 ==1)
       {
         alert("wall therefore can't move");
+
         printInLog('wm',"wall therefore you can't move there");
+
         return(0);
       }
 
@@ -1054,7 +1125,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
             { // red
                 
                 alert("wall therefore you can't move there");
+
                 printInLog('wm',"wall therefore you can't move there");
+
                 return(0);
                 break;
             }
@@ -1124,7 +1197,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       if(p1==1 && p2 ==1)
       {
         alert("wall therefore can't move");
+
         printInLog('wm','wall therefore can\'t move');
+
         return(0);
       }
       else return(1);     //no wall
@@ -1205,10 +1280,12 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
     else if(prbx>fbx && prby>fby)      //move to left top
     {
-      var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      var imgData2 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+
+ 
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE, 1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -1393,12 +1470,13 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
   
 }
 
+///////////////////////   END  GAME BY SUHAS THE TOPPER   ///////////////////////////
 
-////End Game By Suhas
 function endgame(piece){
   alert(" The Game Ends ");
   var winner = piece ? "White" : "Black" ;
   var myWindow = window.open("end.html", "_self");
+
   myWindow.document.write(" The Winner is " + winner);
   printInLog('default','Winner is ' + winner);
 }
@@ -1447,6 +1525,7 @@ function WhiteTimer() {
     seconds_left_White -= 1/2;
 }, 1000);
 } 
+
 
 
 function printInLog(messageType , message){
