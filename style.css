@@ -66,13 +66,13 @@ html, body{
 	width: 140px;
 	font-size: 25px;
 }
-<<<<<<< HEAD
+
 
 #Messages {
 	width : 355px;
 	height :300px;
-	background-color: rgb(211,211,211) ;
-	overflow: scroll;
+	background-color: white ;
+	border: 2px solid black;
+	overflow-y: scroll;
 }
-=======
->>>>>>> 4ef0e9def718aea5998ae55c56694674f3eadec8
+
