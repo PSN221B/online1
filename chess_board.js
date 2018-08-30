@@ -195,7 +195,7 @@ function drawBoard(){
 
 /////////////////   CHESS MOVES VALIDITY   ////////////////////
 
-function ifValidMove(prevbx,prevby,bx,by){
+function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
   var rowsDiff , colsDiff;
 
   rowsDiff = Math.abs(by - prevby);
@@ -217,10 +217,6 @@ function ifValidMove(prevbx,prevby,bx,by){
           if(json.white[i].row === by) 
             if(bx > prevbx &&  (json.white[i].col>prevbx && json.white[i].col<bx)) 
             {
-              alert("can't move there");
-
-              printInLog('wm',"can't move there own piece");
-
               return -1;
             }
             else if(bx < prevbx &&  (json.white[i].col<prevbx && json.white[i].col>bx))
@@ -230,9 +226,8 @@ function ifValidMove(prevbx,prevby,bx,by){
           if(json.black[i].row === by)
             if(bx > prevbx &&  (json.black[i].col>prevbx && json.black[i].col<bx)) 
             {
-              alert("can't move there");
-
-              printInLog('wm',"can't move there own piece");
+              if(giveAlerts === 1)
+              
 
               return -1;
             }
@@ -249,36 +244,20 @@ function ifValidMove(prevbx,prevby,bx,by){
           if(json.white[i].col === bx)
             if(by > prevby &&  (json.white[i].row>prevby && json.white[i].row<by)) 
             {
-              alert("can't move there");
-
-              printInLog('wm',"can't move there own piece");
-
               return -1;
             }
             else if(by < prevby &&  (json.white[i].row<prevby && json.white[i].row>by))
             {
-              alert("can't move there");
-
-              printInLog('wm',"can't move there own piece");
-
               return -1;
             }
           if(json.black[i].col === bx)
           {
             if(by > prevby &&  (json.black[i].row>prevby && json.black[i].row<by)) 
             {
-              alert("can't move there");
-
-              printInLog('wm',"can't move there own piece");
-
               return -1;
             }
             else if(by < prevby &&  (json.black[i].row<prevby && json.black[i].row>by))
             {
-              alert("can't move there");
-
-              printInLog('wm',"can't move there own piece");
-
               return -1;
             }
           }
@@ -288,9 +267,6 @@ function ifValidMove(prevbx,prevby,bx,by){
     }   
     else
     {
-
-      alert("go fuck yourself");
-
       return -1;
     } 
   }  
@@ -304,19 +280,11 @@ function ifValidMove(prevbx,prevby,bx,by){
         if( (json.white[i].col - prevbx) * (bx - prevbx)/colsDiff === (json.white[i].row - prevby) *  (by - prevby)/rowsDiff
             && (json.white[i].col - prevbx) * (bx - json.white[i].col) > 0 && (json.white[i].row - prevby) * (by - json.white[i].row) > 0 )
         {
-         alert("can't move there");
-
-         printInLog('wm',"can't move there own piece");
-
          return -1;
         }
         if( (json.black[i].col - prevbx) * (bx - prevbx)/colsDiff === (json.black[i].row - prevby) *  (by - prevby)/rowsDiff
             && (json.black[i].col - prevbx) * (bx - json.black[i].col) > 0 && (json.black[i].row - prevby) * (by - json.black[i].row) > 0 )
         {
-         alert("can't move there");
-
-         printInLog('wm',"can't move there own piece");
-
          return -1;
         }
       }
@@ -339,7 +307,6 @@ function ifValidMove(prevbx,prevby,bx,by){
 }
 
 //////////////////////////////////////////////////
-
 ////////////////////YASH TOPPER///////////////////
 
 
@@ -408,6 +375,7 @@ function onclickinit(){
       }else if(ifValidMove(prevbx,prevby,bx,by) === -1)
       {
         //invalid move
+        printInLog('wm',"can't move there");
         return -1;
       }
 
@@ -417,11 +385,9 @@ function onclickinit(){
       {
          if(json.white[i].row == by && json.white[i].col == bx)
          {
-           alert("can't move there own piece");
-
-           printInLog('wm',"can't move there own piece");
-
-           return 0;
+          printInLog('wm',"can't move there");
+          
+          return 0;
          }
       }
 
@@ -513,6 +479,8 @@ function onclickinit(){
       }else if(ifValidMove(prevbx,prevby,bx,by) === -1)
       {
         //invalid move
+        printInLog('wm',"can't move there");
+
         return -1;
       }
       
@@ -522,11 +490,9 @@ function onclickinit(){
       {
          if(json.black[i].row == by && json.black[i].col == bx)
          {
-           alert("can't move there");
+          printInLog('wm',"can't move there");
 
-           printInLog('wm',"can't move there");
-
-           return 0;
+          return 0;
          }
       }
 
@@ -633,12 +599,6 @@ function checkIfCheck(jsonindex,isWhite)
 {
   if(isWhite)  //White moved
   {
-    //check if valid move first
-    // if(ifValidMove(json.white[jsonindex].col,json.white[jsonindex].row,json.black[2].col,json.black[2].row) === 0)
-    // {
-    //   //now check if same piece is se
-    //   //deselect
-    //   return 0;
     if(ifValidMove(json.white[jsonindex].col,json.white[jsonindex].row,json.black[2].col,json.black[2].row) === -1)
     {
       //invalid move
@@ -651,12 +611,6 @@ function checkIfCheck(jsonindex,isWhite)
   }
   else  //Black moved
   {
-    //check if valid move first
-    // if(ifValidMove(json.black[jsonindex].col,json.black[jsonindex].row,json.white[2].col,json.white[2].row) === 0)
-    // {
-    //   //now check if same piece is se
-    //   //deselect
-    //   return 0;
     if(ifValidMove(json.black[jsonindex].col,json.black[jsonindex].row,json.white[2].col,json.white[2].row) === -1)
     {
       //invalid move
@@ -669,13 +623,12 @@ function checkIfCheck(jsonindex,isWhite)
   }
 }
 
-/////////////////////////   ROTATE BOARD FUNCTION  ///////////////////////
+/////////////////////////   ROTATE BOARD FUNCTION  /////////////////////////
 
 var firstInBoard=[[0,0],[5,0],[0,5],[5,5],[0,10],[5,10]];
 
 function rotate(id) {
-    if(hadRotPrev[move] === 0)
-    if(!(1-move ? (Math.floor(json.white[2].col/5)===Math.floor(id/2) && Math.floor(json.white[2].row/5)===id%2) : (Math.floor(json.black[2].col/5)===Math.floor(id/2)
+    if(hadRotPrev[move] === 0 && !((1-move) ? (Math.floor(json.white[2].col/5)===Math.floor(id/2) && Math.floor(json.white[2].row/5)===id%2) : (Math.floor(json.black[2].col/5)===Math.floor(id/2)
         && Math.floor(json.black[2].row/5)===id%2 ) )) 
     {
         SEMI_BRD_ORIENT[id]=(SEMI_BRD_ORIENT[id]+1)%4;
@@ -695,7 +648,7 @@ function rotate(id) {
           break;
           case '5': boardAlphabet = 'F';
           break;
-
+        }
 
         for(i=0;i<4;i++)
         {
@@ -722,9 +675,7 @@ function rotate(id) {
 
         hadRotPrev[move] = 1;      
         
-
-
-        }
+        
         if(move === 0){
               printInLog('cb','Board '+boardAlphabet+' rotated');
         }
@@ -738,12 +689,8 @@ function rotate(id) {
 
         drawBoard();
     }
-
     else printInLog('wm','Board cannot be rotated')
-
-
-}
-
+  }  
 
 /////////////////////////  WALL CHECK FUNCTION  /////////////////////////
 
@@ -881,9 +828,9 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
     else if(fbx>prbx && fby<prby)      //move to right top
     {
       var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      var imgData2 =  ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (prbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -924,7 +871,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
               }
       }
 
-      for (var i = 0; i < data1.length; i += 4) 
+      for (var i = 0; i < data4.length; i += 4) 
       { // look at all pixels
               
               if (data4[i] == 255 && data4[i + 1] == 0 && data4[i + 2] == 0) 
@@ -950,10 +897,10 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
     else if(prbx>fbx && prby>fby)      //move to left top
     {
 
-      var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
-      var imgData2 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE,1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
 
 
       var data1 = imgData1.data;
@@ -1012,20 +959,16 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
         printInLog('wm',"wall therefore you can't move there");
         return(0);
       }
-      console.log("WallCheck: "+" "+prby+" "+prbx+" "+fby+" "+fbx);
-      x=WallCheck(prby-1,prbx-1,fby,fbx,jsindex);
-      console.log(x);
-      return(x);
-
+      return(WallCheck(prby-1,prbx-1,fby,fbx,jsindex));
 
     }
 
     else if(fbx<prbx && fby>prby)      //move to left bottom
     {
-      var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      var imgData2 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE, 1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, 1, BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby+1)*BLOCK_SIZE+BLOCK_SIZE/2, 1, -BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby+1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -1139,7 +1082,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
     if(fbx>prbx && fby>prby)          //move to right bottom
     {
       
-
       var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
       var imgData2 =  ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
       var imgData3 =  ctx.getImageData(origin.x + (prbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
@@ -1212,12 +1154,10 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
     else if(fbx>prbx && fby<prby)      //move to right top
     {
 
-       
-
       var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      var imgData2 =  ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 =  ctx.getImageData(origin.x + (prbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 =  ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -1281,11 +1221,10 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
     else if(prbx>fbx && prby>fby)      //move to left top
     {
 
- 
-      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE, 1);
-      var imgData2 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
-      var imgData3 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
-      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE,1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2,1, -BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -1348,10 +1287,10 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
     else if(prbx>fbx && prby<fby)      //move to left bottom
     {
-      var imgData1 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
-      var imgData2 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData3 = ctx.getImageData(origin.x + (fbx+1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2,1, BLOCK_SIZE);
-      var imgData4 = ctx.getImageData(origin.x + (fbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (fby-1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE,1);
+      var imgData1 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, -BLOCK_SIZE, 1);
+      var imgData2 = ctx.getImageData(origin.x + (prbx)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby)*BLOCK_SIZE+BLOCK_SIZE/2, 1, BLOCK_SIZE);
+      var imgData3 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby+1)*BLOCK_SIZE+BLOCK_SIZE/2, 1, -BLOCK_SIZE);
+      var imgData4 = ctx.getImageData(origin.x + (prbx-1)*BLOCK_SIZE+BLOCK_SIZE/2, origin.y + (prby+1)*BLOCK_SIZE+BLOCK_SIZE/2, BLOCK_SIZE, 1);
       
       var data1 = imgData1.data;
       var data2 = imgData2.data;
@@ -1481,9 +1420,9 @@ function endgame(piece){
   printInLog('default','Winner is ' + winner);
 }
 
-////////////Timer////////////////////////
+////////////////   TIMER   ///////////////////////////
 
-var TIME = 60 ;
+var TIME = 600 ;
 var seconds_left_Black = TIME;
 var seconds_left_White = TIME;
 
