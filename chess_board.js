@@ -675,8 +675,8 @@ var firstInBoard=[[0,0],[5,0],[0,5],[5,5],[0,10],[5,10]];
 
 function rotate(id) {
     if(hadRotPrev[move] === 0)
-    if(!( (Math.floor(json.white[2].col/5)===Math.floor(id/2) && Math.floor(json.white[2].row/5)===id%2) || (Math.floor(json.black[2].col/5)===Math.floor(id/2)
-        && Math.floor(json.black[2].row/5)===id%2) )) 
+    if(!(1-move ? (Math.floor(json.white[2].col/5)===Math.floor(id/2) && Math.floor(json.white[2].row/5)===id%2) : (Math.floor(json.black[2].col/5)===Math.floor(id/2)
+        && Math.floor(json.black[2].row/5)===id%2 ) )) 
     {
         SEMI_BRD_ORIENT[id]=(SEMI_BRD_ORIENT[id]+1)%4;
 
