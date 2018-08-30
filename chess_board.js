@@ -22,7 +22,7 @@ var json =
         {
             "imgPos": 0,
             "piece": "ROOK",
-            "row": 0,
+            "row": 7,
             "col": 0,
 
             
@@ -33,7 +33,7 @@ var json =
             "piece": "BISHOP",
 
             "row": 0,
-            "col": 2,
+            "col": 0,
             "in_play": true
 
             
@@ -42,8 +42,8 @@ var json =
             "imgPos": 3,
             "piece": "KING",
 
-            "row": 0,
-            "col": 3,
+            "row": 9,
+            "col": 0,
             "in_play": true
 
         },
@@ -51,7 +51,7 @@ var json =
             "imgPos": 1,
             "piece": "KNIGHT",
 
-            "row": 1,
+            "row": 3,
             "col": 0,
             "in_play": true
 
@@ -63,17 +63,17 @@ var json =
             "imgPos": 0,
             "piece": "ROOK",
 
-            "row": 5,
-            "col": 0,
+            "row": 2,
+            "col": 14,
             "in_play": true
 
         },
         {
             "imgPos": 2,
             "piece": "BISHOP",
-            "row": 5,
+            "row": 9,
 
-            "col": 2,
+            "col": 14,
             "in_play": true
 
         },
@@ -81,16 +81,16 @@ var json =
             "imgPos": 3,
             "piece": "KING",
 
-            "row": 5,
-            "col": 3,
+            "row": 0,
+            "col": 14,
             "in_play": true
 
         },
         {
             "imgPos": 1,
             "piece": "KNIGHT",
-            "row": 5,
-            "col": 11,
+            "row": 6,
+            "col": 14,
 
             "in_play": true
 
@@ -566,7 +566,7 @@ function onclickinit(){
         json.black[jsonindex].col = bx;
 
 
-        printInLog('cw',json.black[jsonindex].piece+' moved from ('+prevX+' , '+prevY+') to ('+bx+' , '+by+')')
+        printInLog('cb',json.black[jsonindex].piece+' moved from ('+prevX+' , '+prevY+') to ('+bx+' , '+by+')')
 
 
         if(checkIfCheck(jsonindex,0)===1) alert("Check MF");
@@ -592,26 +592,26 @@ var SCORE = [0,0];
 //  SCORE[0] -BLACK ; SCORE[1] -WHITE
 
 function calcScore(i,isWhite){
-// King : 70 ; Knight : 40 ; Bishop : 35 ; Rook : 35. 
+// King : 70 ; Knight : 40 ; Bishop : 35 ; Rook : 40. 
   if(i === 0)
   {
     //ROOK
-    SCORE[isWhite] += 135;
+    SCORE[isWhite] += 40;
   }
   else if(i === 1)
   {
     //BISHOP
-    SCORE[isWhite] += 135;
+    SCORE[isWhite] += 35;
   }
   else if(i === 2)
   {
     //KING
-    SCORE[isWhite] += 170;  
+    SCORE[isWhite] += 70;  
   }
   else if(i === 3)
   {
     //KNIGHT
-    SCORE[isWhite] += 140;  
+    SCORE[isWhite] += 40;  
   }
   if(isWhite)
   {
@@ -1500,6 +1500,7 @@ function BlackTimer() {
     {
        document.getElementById('BlackTime').innerHTML = " 0 ";
        printInLog('tb','');
+       endgame(1);
        clearInterval(interval);
     }
 
@@ -1519,6 +1520,7 @@ function WhiteTimer() {
     {
        document.getElementById('WhiteTime').innerHTML = " 0 ";
        printInLog('tw','');
+       endgame(0);
        clearInterval(interval);
     }
 
@@ -1531,17 +1533,17 @@ function WhiteTimer() {
 function printInLog(messageType , message){
   var logDiv = document.getElementById('Messages');
     switch(messageType){
-      case 'cw': logDiv.innerHTML += '<br> >> White move done: ' + message;
+      case 'cw': logDiv.innerHTML += '<br>  # White move done: ' + message;
       break;
-      case 'cb': logDiv.innerHTML += '<br> >> Black move done: ' + message;
+      case 'cb': logDiv.innerHTML += '<br>  # Black move done: ' + message;
       break;
-      case 'tw': logDiv.innerHTML += '<br> >> White Time Expired';
+      case 'tw': logDiv.innerHTML += '<br>  # White Time Expired';
       break;
-      case 'tb': logDiv.innerHTML += '<br> >> Black Time Expired';
+      case 'tb': logDiv.innerHTML += '<br>  # Black Time Expired';
       break;
-      case 'wm': logDiv.innerHTML += '<br> >> Warning: ' + message;
+      case 'wm': logDiv.innerHTML += '<br>  # Warning: ' + message;
       break;
-      default: logDiv.innerHTML += "<br> >> " + message;
+      default: logDiv.innerHTML += "<br>  # " + message;
     }
 }
 
