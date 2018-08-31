@@ -67,7 +67,6 @@ html, body{
 	font-size: 25px;
 }
 
-
 #Messages {
 	width : 355px;
 	height :300px;
@@ -75,4 +74,3 @@ html, body{
 	border: 2px solid black;
 	overflow-y: scroll;
 }
-
