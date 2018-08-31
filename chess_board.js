@@ -385,8 +385,7 @@ function onclickinit(){
       {
          if(json.white[i].row == by && json.white[i].col == bx)
          {
-          printInLog('wm',"can't move there");
-          
+          printInLog('wm',"can't move there");          
           return 0;
          }
       }
@@ -408,12 +407,9 @@ function onclickinit(){
             
             calcScore(i,1);
 
-
             if(i == 2){
               endgame(1);
             }
-
-
             break;
           }
       }
@@ -430,8 +426,11 @@ function onclickinit(){
       printInLog('cw',json.white[jsonindex].piece+' moved from ('+prevX+' , '+prevY+') to ('+bx+' , '+by+')')
 
 
-      if(checkIfCheck(jsonindex,1) ===  1) alert("Check MF");
-
+      if(checkIfCheck(jsonindex,1) ===  1) 
+      { 
+        SCORE[1]+=5;
+        calcScore(-1,1);
+      }
       drawBoard();
 
       hadRotPrev[move] = 0;
@@ -440,6 +439,7 @@ function onclickinit(){
       move = 0;         //black ka move aayga
 
       }
+      else  printInLog('wm',"wall therefore you can't move there");
     }
   }
 
@@ -535,16 +535,20 @@ function onclickinit(){
         printInLog('cb',json.black[jsonindex].piece+' moved from ('+prevX+' , '+prevY+') to ('+bx+' , '+by+')')
 
 
-        if(checkIfCheck(jsonindex,0)===1) alert("Check MF");
-
+        if(checkIfCheck(jsonindex,0)===1) 
+          {
+            SCORE[0]+=5;
+            calcScore(-1,0);
+          }
         hadRotPrev[move] = 0;
 
         clickodd = 0;
-        move = 1;         //white ka move  aayga
+        move = 1;         //white ka move aayga
 
         drawBoard();
 
-      }  
+      }
+      else  printInLog('wm',"wall therefore you can't move there");
     }
   }
 
@@ -697,7 +701,7 @@ function rotate(id) {
 function WallCheck(prby,prbx,fby,fbx,jsindex)
 {
 
-    alert("prby prbx fby fbx jsindex"+ prby + prbx+fby+fbx+jsindex);
+    // alert("prby prbx fby fbx jsindex"+ prby + prbx+fby+fbx+jsindex);
      var canvas = document.getElementById('chess');
     var ctx = canvas.getContext('2d');
 
@@ -734,18 +738,13 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
       { // look at all pixels
               
               if (data[i] == 255 && data[i + 1] == 0 && data[i + 2] == 0) 
-              { // red
-                  
-                  alert("wall therefore you can't move there");
-
-                  printInLog('wm',"wall therefore you can't move there");
-
+              { // red                  
                   return(0);
                   break;
               }
       }
     }
-    alert("i="+i);
+   //alert("i="+i);
     return(1);
   }
 
@@ -814,10 +813,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1 === 1 && p2 === 1)
       {
-        alert("wall therefore can't move");
-
-        printInLog('wm',"wall therefore you can't move there");
-
         return(0);
       }
       return(WallCheck(prby+1,prbx+1,fby,fbx,jsindex));
@@ -883,10 +878,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1==1 && p2 ==1)
       {
-        alert("wall therefore can't move");
-
-        printInLog('wm',"wall therefore you can't move there");
-
         return(0);
       }
 
@@ -954,9 +945,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1 === 1 && p2 === 1)
       {
-        alert("wall therefore can't move");
-
-        printInLog('wm',"wall therefore you can't move there");
         return(0);
       }
       return(WallCheck(prby-1,prbx-1,fby,fbx,jsindex));
@@ -1021,10 +1009,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1==1 && p2 ==1)
       {
-        alert("wall therefore can't move");
-
-        printInLog('wm',"wall therefore you can't move there");
-
         return(0);
       }
 
@@ -1066,11 +1050,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
                  
             if (data[i] == 255 && data[i + 1] == 0 && data[i + 2] == 0) 
             { // red
-                
-                alert("wall therefore you can't move there");
-
-                printInLog('wm',"wall therefore you can't move there");
-
                 return(0);
                 break;
             }
@@ -1138,10 +1117,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1==1 && p2 ==1)
       {
-        alert("wall therefore can't move");
-
-        printInLog('wm','wall therefore can\'t move');
-
         return(0);
       }
       else return(1);     //no wall
@@ -1210,8 +1185,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1==1 && p2 ==1)
       {
-        alert("wall therefore can't move");
-        return(0);
+       return(0);
       }
 
       else return 1;
@@ -1277,7 +1251,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1==1 && p2 ==1)
       {
-        alert("wall therefore can't move");
         return(0);
       }
 
@@ -1343,7 +1316,6 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
       if(p1==1 && p2 ==1)
       {
-        alert("wall therefore can't move");
         return(0);
       }
 
@@ -1472,9 +1444,9 @@ function WhiteTimer() {
 function printInLog(messageType , message){
   var logDiv = document.getElementById('Messages');
     switch(messageType){
-      case 'cw': logDiv.innerHTML += '<br>  # White move done: ' + message;
+      case 'cw': logDiv.innerHTML += '<br>  # White move: ' + message;
       break;
-      case 'cb': logDiv.innerHTML += '<br>  # Black move done: ' + message;
+      case 'cb': logDiv.innerHTML += '<br>  # Black move: ' + message;
       break;
       case 'tw': logDiv.innerHTML += '<br>  # White Time Expired';
       break;
