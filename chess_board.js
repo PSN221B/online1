@@ -1483,7 +1483,7 @@ function endgame(piece){
 
 ////////////Timer////////////////////////
 
-var TIME = 60 ;
+var TIME = 60*5 ;
 var seconds_left_Black = TIME;
 var seconds_left_White = TIME;
 
