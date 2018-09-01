@@ -1418,13 +1418,14 @@ var oneMin = 0;
 var moveTimeWhite = 60;
 var moveTimeBlack = 60;
 
-function BlackTimer(minuteWaala) {
+function BlackTimer(minuteWaala = 0) {
   
   console.log("black");
   oneMin = minuteWaala;
   var interval = setInterval(function() {
 
-    document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+    //document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+    document.getElementById('blackRem').innerHTML = ' '+(moveTimeBlack - Math.floor(oneMin) - minuteWaala);
 
     if(seconds_left_Black <= 330 && !oneMin)  moveTimeBlack = 30;
 
@@ -1467,19 +1468,20 @@ function BlackTimer(minuteWaala) {
        return;
     }
 
-    document.getElementById('blackRem').innerHTML = ' '+(moveTimeBlack - Math.floor(oneMin) - minuteWaala);
+    
     seconds_left_Black -= 1/2;
     oneMin += 1/2;
 }, 1000);
 }
 
-function WhiteTimer(minuteWaala) {  
+function WhiteTimer(minuteWaala = 0) {  
   console.log("white");
   oneMin = minuteWaala;
 
-  document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
+  
   var interval = setInterval(function() {
 
+    document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
     if(seconds_left_White <= 330 && !oneMin) moveTimeWhite = 30;
     if(seconds_left_White <= 60*5)
     {
