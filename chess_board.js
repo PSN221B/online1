@@ -1546,6 +1546,7 @@ function printInLog(messageType , message){
       break;
       default: logDiv.innerHTML += "<br>  # " + message;
     }
+    logDiv.scrollTop = logDiv.scrollHeight;
 }
 
 /////////////////////////////////////////
