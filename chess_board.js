@@ -1407,51 +1407,116 @@ function endgame(piece){
 ////////////////   TIMER   ///////////////////////////
 
 
-var TIME = 60*5 ;
+
+var TIME = 60*15 ;
+
 
 var seconds_left_Black = TIME;
 var seconds_left_White = TIME;
 
-function BlackTimer() {
+
+var oneMin = 0;
+
+function BlackTimer(minuteWaala) {
   
   console.log("black");
+  oneMin = minuteWaala;
   var interval = setInterval(function() {
-    if (move === 1) {
-      WhiteTimer();
+
+    document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+
+    if(seconds_left_Black <= 60*5)
+    {
+      if(oneMin === 30)
+      {
+      printInLog('','Black : 30 seconds expired');
+      move = 1;
+      document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+      seconds_left_White--;
+      WhiteTimer(1);
       clearInterval(interval);
+      return;
+      }
     }
-    document.getElementById('BlackTime').innerHTML = seconds_left_Black;
+     if(oneMin === 60){
+      printInLog('','Black : One minute expired');
+      move = 1;
+      document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+      seconds_left_White--;
+      WhiteTimer(1);
+      clearInterval(interval);
+      return;
+    }
+    if (move === 1) {
+      document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+      WhiteTimer(0);
+      clearInterval(interval);
+      return;
+    }
+    document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+
     if (seconds_left_Black <= 0)
     {
        document.getElementById('BlackTime').innerHTML = " 0 ";
        printInLog('tb','');
        endgame(1);
        clearInterval(interval);
+       return;
     }
 
     seconds_left_Black -= 1/2;
+    oneMin += 1/2;
 }, 1000);
 }
 
-function WhiteTimer() {  
+function WhiteTimer(minuteWaala) {  
   console.log("white");
+  oneMin = minuteWaala;
+
+  document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
   var interval = setInterval(function() {
-    if (move === 0) {
-      BlackTimer();
+    if(seconds_left_White <= 60*5)
+    {
+      if(oneMin === 30)
+      {
+      printInLog('','White : 30 seconds expired');
+      move = 0;
+      document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
+      seconds_left_Black--;
+      BlackTimer(1);
       clearInterval(interval);
+      return;
+      }
     }
-    document.getElementById('WhiteTime').innerHTML = seconds_left_White;
+     if(oneMin === 60){
+      printInLog('','White : One minute expired');
+      move = 0;
+      document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
+      seconds_left_Black--;
+      BlackTimer(1);
+      clearInterval(interval);
+      return;
+    }
+    if (move === 0) {
+      document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
+      BlackTimer(0);
+      clearInterval(interval);
+      return;
+    }
+    document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
+
     if (seconds_left_White <= 0 )
     {
        document.getElementById('WhiteTime').innerHTML = " 0 ";
        printInLog('tw','');
        endgame(0);
        clearInterval(interval);
+       return;
     }
 
     seconds_left_White -= 1/2;
-}, 1000);
-} 
+    oneMin += 1/2;
+}, 1000);}
 
 
 
