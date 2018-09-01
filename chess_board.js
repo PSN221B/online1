@@ -206,7 +206,7 @@ function drawBoard(){
 
 /////////////////   CHESS MOVES VALIDITY   ////////////////////
 
-function ifValidMove(prevbx,prevby,bx,by,jsonindex){
+function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
   var rowsDiff , colsDiff;
 
   rowsDiff = Math.abs(by - prevby);
@@ -237,6 +237,8 @@ function ifValidMove(prevbx,prevby,bx,by,jsonindex){
           if(json.black[i].row === by)
             if(bx > prevbx &&  (json.black[i].col>prevbx && json.black[i].col<bx)) 
             {
+              if(giveAlerts === 1)
+              
               return -1;
             }
             else if(bx < prevbx &&  (json.black[i].col<prevbx && json.black[i].col>bx))
@@ -247,7 +249,7 @@ function ifValidMove(prevbx,prevby,bx,by,jsonindex){
       }   
       else if(colsDiff === 0)   // Belongs to same column
       {
-        for(i=0;i<json.white.length;i++)    
+        for(i=0;i<4;i++)    
         {
           if(json.white[i].col === bx)
             if(by > prevby &&  (json.white[i].row>prevby && json.white[i].row<by)) 
@@ -282,7 +284,7 @@ function ifValidMove(prevbx,prevby,bx,by,jsonindex){
     //BISHOP MOVEMENT
     if(rowsDiff === colsDiff)
     {
-      for(i=0;i<json.white.length;i++)
+      for(i=0;i<4;i++)
       {
         if(i === 1) continue;
         if( (json.white[i].col - prevbx) * (bx - prevbx)/colsDiff === (json.white[i].row - prevby) *  (by - prevby)/rowsDiff
@@ -323,6 +325,8 @@ var move = 1,   //0-black's move, 1-white's move
     hadRotPrev = [0,0]; //Had Rotated Previously, 0-false 1-true
 
 var prevbx = null, prevby = null;
+
+var jsonindex = null;
 
 function onclickinit(){
   $("#chess").on("click", function (event){
@@ -365,20 +369,20 @@ function onclickinit(){
           break;
         }
       }
-      var jsonindex = i;
+      jsonindex = i;
     }
 
     else if (clickodd === 1)
     {
       //check if valid move first
-      if(ifValidMove(prevbx,prevby,bx,by,jsonindex) === 0)
+      if(ifValidMove(prevbx,prevby,bx,by) === 0)
       {
         //now check if same piece is se
         //deselect
         removeSelection();
         clickodd = 0;
         return 0;
-      }else if(ifValidMove(prevbx,prevby,bx,by,jsonindex) === -1)
+      }else if(ifValidMove(prevbx,prevby,bx,by) === -1)
       {
         //invalid move
         printInLog('wm',"can't move there");
@@ -413,7 +417,7 @@ function onclickinit(){
             
             calcScore(i,1);
 
-            if(i === 3){
+            if(i == 2){
               endgame(1);
             }
             break;
@@ -452,7 +456,7 @@ function onclickinit(){
   else if (move === 0)         //Its black ka move
   {
 
-    if(clickodd === 0 )      //first time click
+    if(clickodd == 0 )      //first time click
     {
       for(i=0;i<json.white.length;i++)
       {
@@ -469,13 +473,13 @@ function onclickinit(){
           break;
         }
       }
-      var jsonindex = i;
+      jsonindex = i;
     }
 
-    else if (clickodd === 1)
+    else if (clickodd == 1)
     {
       //check if valid move first
-      if(ifValidMove(prevbx,prevby,bx,by,jsonindex) === 0)
+      if(ifValidMove(prevbx,prevby,bx,by) === 0)
       {
         //now check if his own piece
         //deselect
@@ -520,7 +524,7 @@ function onclickinit(){
 
             calcScore(i,0);
 
-            if(i === 3){
+            if(i == 2){
               endgame(0);
             }
 
@@ -609,7 +613,7 @@ function checkIfCheck(jsonindex,isWhite)
 {
   if(isWhite)  //White moved
   {
-    if(ifValidMove(json.white[jsonindex].col,json.white[jsonindex].row,json.black[3].col,json.black[3].row,jsonindex) === -1)
+    if(ifValidMove(json.white[jsonindex].col,json.white[jsonindex].row,json.black[3].col,json.black[3].row) === -1)
     {
       //invalid move
       return -1;
@@ -622,7 +626,7 @@ function checkIfCheck(jsonindex,isWhite)
   }
   else  //Black moved
   {
-    if(ifValidMove(json.black[jsonindex].col,json.black[jsonindex].row,json.white[3].col,json.white[3].row,jsonindex) === -1)
+    if(ifValidMove(json.black[jsonindex].col,json.black[jsonindex].row,json.white[3].col,json.white[3].row) === -1)
     {
       //invalid move
       return -1;
@@ -1396,11 +1400,11 @@ function endgame(piece){
   var winner = piece ? "White" : "Black" ;
   var myWindow = window.open("end.html", "_self");
 
-  myWindow.document.write(" The Winner is " + winner);
+  myWindow.document.write("<h1> The Winner is " + winner + "</h1><br />Scores are WHITE : " + SCORE[1] + "  BLACK : " + SCORE[0]);
   printInLog('default','Winner is ' + winner);
 }
 
-/////////////////////   TIMER   /////////////////////////////
+////////////////   TIMER   ///////////////////////////
 
 
 
