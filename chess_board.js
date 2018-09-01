@@ -417,7 +417,7 @@ function onclickinit(){
             
             calcScore(i,1);
 
-            if(i == 2){
+            if(i == 3){
               endgame(1);
             }
             break;
@@ -524,7 +524,7 @@ function onclickinit(){
 
             calcScore(i,0);
 
-            if(i == 2){
+            if(i == 3){
               endgame(0);
             }
 
