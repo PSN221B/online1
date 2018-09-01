@@ -22,39 +22,44 @@ var json =
         {
             "imgPos": 0,
             "piece": "ROOK",
+
             "row": 7,
-            "col": 0,
-
-            
-
+            "col": 0
         },
         {
             "imgPos": 2,
-            "piece": "BISHOP",
+            "piece": "BISHOP_1",
 
             "row": 0,
-            "col": 0,
-            "in_play": true
+            "col": 0
+        },
+        {
+            "imgPos": 2,
+            "piece": "BISHOP_2",
 
-            
+            "row": 4,
+            "col": 0
         },
         {
             "imgPos": 3,
             "piece": "KING",
 
             "row": 9,
-            "col": 0,
-            "in_play": true
-
+            "col": 0
         },
         {
             "imgPos": 1,
-            "piece": "KNIGHT",
+            "piece": "KNIGHT_1",
 
             "row": 3,
-            "col": 0,
-            "in_play": true
+            "col": 0
+        },
+        {
+            "imgPos": 1,
+            "piece": "KNIGHT_2",
 
+            "row": 5,
+            "col": 0
         }
     ],
     "black":
@@ -64,41 +69,47 @@ var json =
             "piece": "ROOK",
 
             "row": 2,
-            "col": 14,
-            "in_play": true
-
+            "col": 14
         },
         {
             "imgPos": 2,
-            "piece": "BISHOP",
+            "piece": "BISHOP_1",
+
             "row": 9,
+            "col": 14
+        },
+        {
+            "imgPos": 2,
+            "piece": "BISHOP_2",
 
-            "col": 14,
-            "in_play": true
-
+            "row": 1,
+            "col": 14
         },
         {
             "imgPos": 3,
             "piece": "KING",
 
             "row": 0,
-            "col": 14,
-            "in_play": true
-
+            "col": 14
         },
         {
             "imgPos": 1,
-            "piece": "KNIGHT",
+            "piece": "KNIGHT_1",
+
             "row": 6,
-            "col": 14,
+            "col": 14
+        },
+        {
+            "imgPos": 1,
+            "piece": "KNIGHT_2",
 
-            "in_play": true
-
-        }
+            "row": 5,
+            "col": 14
+        }        
     ]
 };
 
-//////////////////////  Drawing pieces  ///////////////////////////////
+//////////////////////  DRAWING PIECES  ///////////////////////////////
 
 function getImageCoords(pieceCode, bBlackTeam) {
 
@@ -155,7 +166,7 @@ function removeSelection() {
     drawPieces();
 }
 
-///////////////////////    DRAWING BOARD   //////////////////////
+///////////////////////    DRAWING BOARD   ///////////////////////
 
 function drawSemiBoard(board_no) {
     var canvas = document.getElementById('chess');
@@ -228,7 +239,6 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
             {
               if(giveAlerts === 1)
               
-
               return -1;
             }
             else if(bx < prevbx &&  (json.black[i].col<prevbx && json.black[i].col>bx))
@@ -270,7 +280,7 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
       return -1;
     } 
   }  
-  else if(jsonindex === 1){
+  else if(jsonindex === 1 || jsonindex === 2){
     //BISHOP MOVEMENT
     if(rowsDiff === colsDiff)
     {
@@ -292,13 +302,13 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
     }
     else return -1;
   }
-  else if (jsonindex === 2){
+  else if (jsonindex === 3){
     //KING MOVEMENT
     if(rowsDiff*colsDiff <= 1 && Math.abs(rowsDiff- colsDiff) <=1 )
       return 1;
     else return -1;
   }
-  else if(jsonindex === 3){
+  else if(jsonindex === 4 || jsonindex === 5){
     //KNIGHT MOVEMENT
     if((rowsDiff === 2 && colsDiff ===1)||(rowsDiff === 1 && colsDiff === 2))
       return 1;
@@ -307,7 +317,7 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
 }
 
 //////////////////////////////////////////////////
-////////////////////YASH TOPPER///////////////////
+//////////////////  YASH TOPPER  /////////////////
 
 
 var move = 1,   //0-black's move, 1-white's move
@@ -344,7 +354,7 @@ function onclickinit(){
 
     if(clickodd === 0 )      //first time click
     {
-      for(i=0;i<4;i++)
+      for(i=0;i<json.white.length;i++)
       {
         if(json.white[i].row === by && json.white[i].col === bx)      //if its his own piece
         {
@@ -381,7 +391,7 @@ function onclickinit(){
 
       //now check if his own piece
 
-      for(i=0;i<4;i++)
+      for(i=0;i<json.white.length;i++)
       {
          if(json.white[i].row == by && json.white[i].col == bx)
          {
@@ -398,7 +408,7 @@ function onclickinit(){
       {
             //check if enemy piece
 
-      for(i=0;i<4;i++)
+      for(i=0;i<json.white.length;i++)
       {
           if(json.black[i].row == by && json.black[i].col == bx)
           {
@@ -448,7 +458,7 @@ function onclickinit(){
 
     if(clickodd == 0 )      //first time click
     {
-      for(i=0;i<4;i++)
+      for(i=0;i<json.white.length;i++)
       {
         if(json.black[i].row == by && json.black[i].col == bx)      //if its his own piece
         {
@@ -486,7 +496,7 @@ function onclickinit(){
       
       //now check if his own piece
 
-      for(i=0;i<4;i++)
+      for(i=0;i<json.white.length;i++)
       {
          if(json.black[i].row == by && json.black[i].col == bx)
          {
@@ -505,7 +515,7 @@ function onclickinit(){
       {
         //check if enemy piece
 
-        for(i=0;i<4;i++)
+        for(i=0;i<json.white.length;i++)
         {
           if(json.white[i].row == by && json.white[i].col == bx)
           {
@@ -556,7 +566,7 @@ function onclickinit(){
 
 }
 
-//////////////////////   SCORE BOARD  //////////////////
+//////////////////////   SCORE BOARD  /////////////////////
 
 var SCORE = [0,0];
 //  SCORE[0] -BLACK ; SCORE[1] -WHITE
@@ -568,17 +578,17 @@ function calcScore(i,isWhite){
     //ROOK
     SCORE[isWhite] += 40;
   }
-  else if(i === 1)
+  else if(i === 1 || i === 2)
   {
     //BISHOP
     SCORE[isWhite] += 35;
   }
-  else if(i === 2)
+  else if(i === 3)
   {
     //KING
     SCORE[isWhite] += 70;  
   }
-  else if(i === 3)
+  else if(i === 4 || i === 5)
   {
     //KNIGHT
     SCORE[isWhite] += 40;  
@@ -603,27 +613,29 @@ function checkIfCheck(jsonindex,isWhite)
 {
   if(isWhite)  //White moved
   {
-    if(ifValidMove(json.white[jsonindex].col,json.white[jsonindex].row,json.black[2].col,json.black[2].row) === -1)
+    if(ifValidMove(json.white[jsonindex].col,json.white[jsonindex].row,json.black[3].col,json.black[3].row) === -1)
     {
       //invalid move
       return -1;
     }
 
     //Wall
-    if(WallCheck(json.white[jsonindex].row,json.white[jsonindex].col,json.black[2].row,json.black[2].col,jsonindex) === 1)
+    if(WallCheck(json.white[jsonindex].row,json.white[jsonindex].col,json.black[3].row,json.black[3].col,jsonindex) === 1)
     return 1;
+    else return -1;
   }
   else  //Black moved
   {
-    if(ifValidMove(json.black[jsonindex].col,json.black[jsonindex].row,json.white[2].col,json.white[2].row) === -1)
+    if(ifValidMove(json.black[jsonindex].col,json.black[jsonindex].row,json.white[3].col,json.white[3].row) === -1)
     {
       //invalid move
       return -1;
     }
 
     //Wall
-    if(WallCheck(json.black[jsonindex].row,json.black[jsonindex].col,json.white[2].row,json.white[2].col,jsonindex) === 1)
+    if(WallCheck(json.black[jsonindex].row,json.black[jsonindex].col,json.white[3].row,json.white[3].col,jsonindex) === 1)
     return 1;
+    else return -1;
   }
 }
 
@@ -632,8 +644,8 @@ function checkIfCheck(jsonindex,isWhite)
 var firstInBoard=[[0,0],[5,0],[0,5],[5,5],[0,10],[5,10]];
 
 function rotate(id) {
-    if(hadRotPrev[move] === 0 && !((1-move) ? (Math.floor(json.white[2].col/5)===Math.floor(id/2) && Math.floor(json.white[2].row/5)===id%2) : (Math.floor(json.black[2].col/5)===Math.floor(id/2)
-        && Math.floor(json.black[2].row/5)===id%2 ) )) 
+    if(hadRotPrev[move] === 0 && !((1-move) ? (Math.floor(json.white[3].col/5)===Math.floor(id/2) && Math.floor(json.white[3].row/5)===id%2) : (Math.floor(json.black[3].col/5)===Math.floor(id/2)
+        && Math.floor(json.black[3].row/5)===id%2 ) )) 
     {
         SEMI_BRD_ORIENT[id]=(SEMI_BRD_ORIENT[id]+1)%4;
 
@@ -654,7 +666,7 @@ function rotate(id) {
           break;
         }
 
-        for(i=0;i<4;i++)
+        for(i=0;i<json.white.length;i++)
         {
             if(json.white[i].row>=firstInBoard[id][0] && json.white[i].row<firstInBoard[id][0]+5 && json.white[i].col>=firstInBoard[id][1]  && json.white[i].col<firstInBoard[id][1]+5)
             {
@@ -665,7 +677,7 @@ function rotate(id) {
             }
             //console.log(json.white[i].row,json.white[i].col);
         }
-        for(i=0;i<4;i++)
+        for(i=0;i<json.white.length;i++)
         {
 
             if(json.black[i].row>=firstInBoard[id][0] && json.black[i].row<firstInBoard[id][0]+5 && json.black[i].col>=firstInBoard[id][1]  && json.black[i].col<firstInBoard[id][1]+5)
@@ -748,7 +760,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
     return(1);
   }
 
-  if(jsindex===1)      //BISHOP
+  if(jsindex===1 || jsindex===2)      //BISHOP
   {
       if(fbx===prbx && fby===prby)      //no wall found recurse back
       {
@@ -1019,7 +1031,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
 
   }
 
-  if(jsindex===2)      //KING
+  if(jsindex===3)      //KING
   {
     if(prbx>fbx && prby == fby)
     {
@@ -1326,7 +1338,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
   }
 
 
-  if(jsindex==3)      //KNIGHT
+  if(jsindex===4 || jsindex===5)      //KNIGHT
   {
     if(Math.abs(fbx-prbx) === 1)
     { 
