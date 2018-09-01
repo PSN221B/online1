@@ -1402,8 +1402,9 @@ var TIME = 60*15 ;
 var seconds_left_Black = TIME;
 var seconds_left_White = TIME;
 
-
 var oneMin = 0;
+var moveTimeWhite = 60;
+var moveTimeBlack = 60;
 
 function BlackTimer(minuteWaala) {
   
@@ -1412,6 +1413,8 @@ function BlackTimer(minuteWaala) {
   var interval = setInterval(function() {
 
     document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+
+    if(seconds_left_Black <= 330 && !oneMin)  moveTimeBlack = 30;
 
     if(seconds_left_Black <= 60*5)
     {
@@ -1452,6 +1455,7 @@ function BlackTimer(minuteWaala) {
        return;
     }
 
+    document.getElementById('blackRem').innerHTML = ' '+(moveTimeBlack - Math.floor(oneMin) - minuteWaala);
     seconds_left_Black -= 1/2;
     oneMin += 1/2;
 }, 1000);
@@ -1463,8 +1467,11 @@ function WhiteTimer(minuteWaala) {
 
   document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
   var interval = setInterval(function() {
+
+    if(seconds_left_White <= 330 && !oneMin) moveTimeWhite = 30;
     if(seconds_left_White <= 60*5)
     {
+
       if(oneMin === 30)
       {
       printInLog('','White : 30 seconds expired');
@@ -1501,6 +1508,8 @@ function WhiteTimer(minuteWaala) {
        clearInterval(interval);
        return;
     }
+
+    document.getElementById('whiteRem').innerHTML = ' '+(moveTimeWhite - Math.floor(oneMin) - minuteWaala);
 
     seconds_left_White -= 1/2;
     oneMin += 1/2;
