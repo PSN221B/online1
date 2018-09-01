@@ -28,7 +28,7 @@ html, body{
 
 .buttons_menu{
 	width : 130px;
-	height :760px;
+	height :800px;
 	padding-bottom: 0;
 	margin: 0;
 	display: inline-block;
@@ -39,7 +39,7 @@ html, body{
 
 .rotateButton{
 	width: 125px;
-	height: 110px;
+	height: 130px;
 	font-size: 20px;
 }
 
