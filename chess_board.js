@@ -23,21 +23,21 @@ var json =
             "imgPos": 0,
             "piece": "ROOK",
 
-            "row": 7,
+            "row": 0,
             "col": 0
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_1",
 
-            "row": 0,
+            "row": 4,
             "col": 0
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_2",
 
-            "row": 4,
+            "row": 7,
             "col": 0
         },
         {
@@ -51,7 +51,7 @@ var json =
             "imgPos": 1,
             "piece": "KNIGHT_1",
 
-            "row": 3,
+            "row": 2,
             "col": 0
         },
         {
@@ -68,21 +68,21 @@ var json =
             "imgPos": 0,
             "piece": "ROOK",
 
-            "row": 2,
+            "row": 9,
             "col": 14
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_1",
 
-            "row": 9,
+            "row": 5,
             "col": 14
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_2",
 
-            "row": 1,
+            "row": 2,
             "col": 14
         },
         {
@@ -96,14 +96,14 @@ var json =
             "imgPos": 1,
             "piece": "KNIGHT_1",
 
-            "row": 6,
+            "row": 7,
             "col": 14
         },
         {
             "imgPos": 1,
             "piece": "KNIGHT_2",
 
-            "row": 5,
+            "row": 4,
             "col": 14
         }        
     ]
