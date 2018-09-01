@@ -23,21 +23,21 @@ var json =
             "imgPos": 0,
             "piece": "ROOK",
 
-            "row": 7,
+            "row": 0,
             "col": 0
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_1",
 
-            "row": 0,
+            "row": 4,
             "col": 0
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_2",
 
-            "row": 4,
+            "row": 7,
             "col": 0
         },
         {
@@ -51,7 +51,7 @@ var json =
             "imgPos": 1,
             "piece": "KNIGHT_1",
 
-            "row": 3,
+            "row": 2,
             "col": 0
         },
         {
@@ -68,21 +68,21 @@ var json =
             "imgPos": 0,
             "piece": "ROOK",
 
-            "row": 2,
+            "row": 9,
             "col": 14
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_1",
 
-            "row": 9,
+            "row": 5,
             "col": 14
         },
         {
             "imgPos": 2,
             "piece": "BISHOP_2",
 
-            "row": 1,
+            "row": 2,
             "col": 14
         },
         {
@@ -96,14 +96,14 @@ var json =
             "imgPos": 1,
             "piece": "KNIGHT_1",
 
-            "row": 6,
+            "row": 7,
             "col": 14
         },
         {
             "imgPos": 1,
             "piece": "KNIGHT_2",
 
-            "row": 5,
+            "row": 4,
             "col": 14
         }        
     ]
@@ -223,7 +223,7 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
     { 
       if(rowsDiff === 0)   // Belongs to same row
       {
-        for(i=0;i<4;i++)    
+        for(i=0;i<json.white.length;i++)    
         {
           if(json.white[i].row === by) 
             if(bx > prevbx &&  (json.white[i].col>prevbx && json.white[i].col<bx)) 
@@ -453,7 +453,7 @@ function onclickinit(){
     }
   }
 
-  else if (move == 0)         //Its black ka move
+  else if (move === 0)         //Its black ka move
   {
 
     if(clickodd == 0 )      //first time click
@@ -591,7 +591,7 @@ function calcScore(i,isWhite){
   else if(i === 4 || i === 5)
   {
     //KNIGHT
-    SCORE[isWhite] += 40;  
+    SCORE[isWhite] += 35;  
   }
   if(isWhite)
   {
@@ -644,7 +644,7 @@ function checkIfCheck(jsonindex,isWhite)
 var firstInBoard=[[0,0],[5,0],[0,5],[5,5],[0,10],[5,10]];
 
 function rotate(id) {
-    if(hadRotPrev[move] === 0 && !((1-move) ? (Math.floor(json.white[3].col/5)===Math.floor(id/2) && Math.floor(json.white[3].row/5)===id%2) : (Math.floor(json.black[3].col/5)===Math.floor(id/2)
+    if((move===0 || move===1) && hadRotPrev[move] === 0 && !((1-move) ? (Math.floor(json.white[3].col/5)===Math.floor(id/2) && Math.floor(json.white[3].row/5)===id%2) : (Math.floor(json.black[3].col/5)===Math.floor(id/2)
         && Math.floor(json.black[3].row/5)===id%2 ) )) 
     {
         SEMI_BRD_ORIENT[id]=(SEMI_BRD_ORIENT[id]+1)%4;
@@ -1400,7 +1400,7 @@ function endgame(piece){
   var winner = piece ? "White" : "Black" ;
   var myWindow = window.open("end.html", "_self");
 
-  myWindow.document.write(" The Winner is " + winner);
+  myWindow.document.write("<h1> The Winner is " + winner + "</h1><br />Scores are WHITE : " + SCORE[1] + "  BLACK : " + SCORE[0]);
   printInLog('default','Winner is ' + winner);
 }
 
