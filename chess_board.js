@@ -1395,10 +1395,13 @@ function endgame(piece){
 ////////////////   TIMER   ///////////////////////////
 
 
-var TIME = 60*6;
+
+var TIME = 60*15 ;
+
 
 var seconds_left_Black = TIME;
 var seconds_left_White = TIME;
+
 
 var oneMin = 0;
 
@@ -1439,6 +1442,7 @@ function BlackTimer(minuteWaala) {
       return;
     }
     document.getElementById('BlackTime').innerHTML = Math.floor(seconds_left_Black);
+
     if (seconds_left_Black <= 0)
     {
        document.getElementById('BlackTime').innerHTML = " 0 ";
@@ -1488,6 +1492,7 @@ function WhiteTimer(minuteWaala) {
       return;
     }
     document.getElementById('WhiteTime').innerHTML = Math.floor(seconds_left_White);
+
     if (seconds_left_White <= 0 )
     {
        document.getElementById('WhiteTime').innerHTML = " 0 ";
@@ -1499,8 +1504,7 @@ function WhiteTimer(minuteWaala) {
 
     seconds_left_White -= 1/2;
     oneMin += 1/2;
-}, 1000);
-} 
+}, 1000);}
 
 
 
