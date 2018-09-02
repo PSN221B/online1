@@ -236,9 +236,7 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
             }
           if(json.black[i].row === by)
             if(bx > prevbx &&  (json.black[i].col>prevbx && json.black[i].col<bx)) 
-            {
-              if(giveAlerts === 1)
-              
+            {              
               return -1;
             }
             else if(bx < prevbx &&  (json.black[i].col<prevbx && json.black[i].col>bx))
@@ -249,7 +247,7 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
       }   
       else if(colsDiff === 0)   // Belongs to same column
       {
-        for(i=0;i<4;i++)    
+        for(i=0;i<json.white.length;i++)    
         {
           if(json.white[i].col === bx)
             if(by > prevby &&  (json.white[i].row>prevby && json.white[i].row<by)) 
@@ -284,7 +282,7 @@ function ifValidMove(prevbx,prevby,bx,by,giveAlerts){
     //BISHOP MOVEMENT
     if(rowsDiff === colsDiff)
     {
-      for(i=0;i<4;i++)
+      for(i=0;i<json.white.length;i++)
       {
         if(i === 1) continue;
         if( (json.white[i].col - prevbx) * (bx - prevbx)/colsDiff === (json.white[i].row - prevby) *  (by - prevby)/rowsDiff
@@ -1024,7 +1022,7 @@ function WallCheck(prby,prbx,fby,fbx,jsindex)
         return(0);
       }
 
-      return(WallCheck(prby,prbx,fby-1,fbx+1,jsindex));
+      return(WallCheck(prby+1,prbx-1,fby,fbx,jsindex));
 
     }    
 
